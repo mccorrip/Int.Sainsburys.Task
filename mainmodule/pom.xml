@@ -5,6 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Int.Sainsburys.Task</name>
   <description>Sainsburys technical task</description>
+  <packaging>pom</packaging>
   
   <dependencies>
 	 <dependency>
@@ -15,4 +16,7 @@
 	</dependency>
   </dependencies>
  
+  <modules>
+  	<module>scrapermodule</module>
+  </modules>
 </project>
