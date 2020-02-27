@@ -5,6 +5,5 @@
     <artifactId>mainmodule</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>Int.Sainsburys.Task.Module</groupId>
-  <artifactId>scrapermodule</artifactId>
+  <artifactId>parsingmodule</artifactId>
 </project>
