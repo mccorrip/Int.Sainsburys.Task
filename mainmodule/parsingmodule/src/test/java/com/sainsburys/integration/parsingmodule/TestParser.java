@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.sainsburys.integration.parsingmodule.exception.BadHTMLException;
 import com.sainsburys.integration.parsingmodule.model.Result;
 
-public class TestSearchPageParser {
+public class TestParser {
 
 	final String berrysCherriesCurrantsPathSuccess = "src/test/resources/TestData/HTML/Sainsburys/BerrysCherriesCurrants.html";
 	final String berrysCherriesCurrantsPathNoProducts = "src/test/resources/TestData/HTML/Sainsburys/BerrysCherriesCurrantsNoProducts.html";
@@ -33,53 +33,7 @@ public class TestSearchPageParser {
 	Parser parser = new Parser();
 	final String domainSainsburys = "www.sainsburys.co.uk";
 
-	
-	@Test
-	public void testPositiveURLSearch() throws BadHTMLException, IOException {
-		ArrayList<String> actualStrings = parser.parseUrls(TestUtility.readFile(berrysCherriesCurrantsPathSuccess), tagName, domain);
-		assertEquals(17, actualStrings.size());
-	}
-	
-	@Test (expected = BadHTMLException.class)
-	public void testNegativeNoProducts() throws BadHTMLException, IOException {
-		try {
-			parser.parseUrls(TestUtility.readFile(berrysCherriesCurrantsPathNoProducts), tagName, domain);
-		} catch (BadHTMLException e) {
-			assertEquals("No products found under tag: div.productInfo a", e.getMessage());
-			throw e;
-		}
-	}
-	
-	@Test (expected = BadHTMLException.class)
-	public void testNegativeNull() throws BadHTMLException {
-		try {
-			parser.parseUrls(null, tagName, domain);
-		} catch (BadHTMLException e) {
-			assertEquals("Null or empty HTML input", e.getMessage());
-			throw e;
-		}
-	}
-	
-	@Test (expected = BadHTMLException.class)
-	public void testNegativeEmpty() throws BadHTMLException, IOException {
-		try {
-			parser.parseUrls("", tagName, domain);
-		} catch (BadHTMLException e) {
-			assertEquals("Null or empty HTML input", e.getMessage());
-			throw e;
-		}
-	}
-	
-	@Test (expected = BadHTMLException.class)
-	public void testNegativeNoURLs() throws BadHTMLException, IOException {
-		try {
-			parser.parseUrls("", tagName, domain);
-		} catch (BadHTMLException e) {
-			assertEquals("Null or empty HTML input", e.getMessage());
-			throw e;
-		}
-	}
-	
+
 	@Test
 	public void testCleanURLsPositiveNoChange() {
 		ArrayList<String> uncleanUrls = new ArrayList<String>(Arrays.asList(new String[] {"A","B","C"}));
@@ -120,42 +74,6 @@ public class TestSearchPageParser {
 		ArrayList<String> expectedUrls = new ArrayList<String>(Arrays.asList(new String[] {"www.sainsburys.co.uk/home/exampleURL1","www.sainsburys.co.uk/home/exampleURL2","www.sainsburys.co.uk/home/exampleURL3"}));
 		ArrayList<String> actualUrls = parser.cleanUrls(uncleanUrls, "www.sainsburys.co.uk");
 		assertEquals(expectedUrls, actualUrls);
-	}
-	
-	@Test
-	public void testParseProductDataBlueberrysAllInfo() throws BadHTMLException, IOException {
-		Result result = parser.parseProductData(TestUtility.readFile(blueberriesProductPage), titleQuery, descriptionQuery, pricePerUnitQuery, kcal100gQuery);
-		assertEquals("Sainsbury's Blueberries 200g", result.getTitle());
-		assertEquals("by Sainsbury's blueberries", result.getDescription());
-		assertEquals(new Integer(45), result.getKcal_per_100g());
-		assertEquals(new Double(1.75), result.getUnitPrice());
-	}
-	
-	@Test
-	public void testParseProductDataBlueberrysUpsell() throws BadHTMLException, IOException {
-		Result result = parser.parseProductData(TestUtility.readFile(blueberries400gProductPage), titleQuery, descriptionQuery, pricePerUnitQuery, kcal100gQuery);
-		assertEquals("Sainsbury's Blueberries 400g", result.getTitle());
-		assertEquals("by Sainsbury's blueberries", result.getDescription());
-		assertEquals(new Integer(45), result.getKcal_per_100g());
-		assertEquals(new Double(3.25), result.getUnitPrice());
-	}
-	
-	@Test
-	public void testParseProductDataMixedBerriesNoCalories() throws BadHTMLException, IOException {
-		Result result = parser.parseProductData(TestUtility.readFile(mixedBerriesNoCalories), titleQuery, descriptionQuery, pricePerUnitQuery, kcal100gQuery);
-		assertEquals("Sainsbury's Mixed Berries 300g", result.getTitle());
-		assertEquals("by Sainsbury's mixed berries", result.getDescription());
-		assertEquals(null, result.getKcal_per_100g());
-		assertEquals(new Double(3.50), result.getUnitPrice());
-	}
-	
-	@Test
-	public void testParseProductDataCherryMultiLineDescription() throws BadHTMLException, IOException {
-		Result result = parser.parseProductData(TestUtility.readFile(cherrysMultiLineDescription), titleQuery, descriptionQuery, pricePerUnitQuery, kcal100gQuery);
-		assertEquals("Sainsbury's Cherry Punnet 200g", result.getTitle());
-		assertEquals("Cherries", result.getDescription());
-		assertEquals(new Integer(52), result.getKcal_per_100g());
-		assertEquals(new Double(1.50), result.getUnitPrice());
 	}
 
 	@Test
