@@ -1,4 +1,4 @@
-package com.sainsburys.integration.scrapermodule.exception;
+package com.sainsburys.integration.parsingmodule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TestUtility {
-	
+
 	public static String readFile(String path) throws IOException {
 		return readFile(path, StandardCharsets.UTF_8);
 	}
@@ -24,7 +24,5 @@ public class TestUtility {
 	public static String removeWhiteSpaces(String input) {
 	    return input.replaceAll("\\s+", "");
 	}
-	
-	
 	
 }
