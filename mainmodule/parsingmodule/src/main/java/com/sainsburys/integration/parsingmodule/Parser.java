@@ -2,14 +2,6 @@ package com.sainsburys.integration.parsingmodule;
 
 import java.util.ArrayList;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import com.sainsburys.integration.parsingmodule.exception.BadHTMLException;
-import com.sainsburys.integration.parsingmodule.model.Result;
-
 public class Parser {
 
 	public ArrayList<String> cleanUrls(ArrayList<String> urls, String domain) {

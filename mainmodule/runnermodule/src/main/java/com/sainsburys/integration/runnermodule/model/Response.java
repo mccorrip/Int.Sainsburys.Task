@@ -1,5 +1,6 @@
 package com.sainsburys.integration.runnermodule.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.sainsburys.integration.parsingmodule.model.Result;
@@ -38,6 +39,8 @@ public class Response {
 		for(Result result: results) {
 			gross = gross + result.getUnitPrice();
 		}
-		return new Total(gross, ((gross/(1 + vat))*vat));
+		DecimalFormat df = new DecimalFormat("#.##");
+
+		return new Total(Double.parseDouble(df.format(gross)), Double.parseDouble(df.format(((gross/(1 + vat))*vat))));
 	}
 }

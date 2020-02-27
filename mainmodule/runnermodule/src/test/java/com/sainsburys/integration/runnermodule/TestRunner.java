@@ -32,7 +32,7 @@ public class TestRunner {
 	public void testEndToEnd() throws Exception {
 		Response response = runner.init(new JSoupScraper(), new JSoupParser(), createConfig());
 		assertEquals(new Double(39.5), new Double(response.getTotal().getGross()));
-		assertEquals(new Double(6.583333333333335), new Double(response.getTotal().getVat()));
+		assertEquals(new Double(6.58), new Double(response.getTotal().getVat()));
 		ObjectMapper Obj = new ObjectMapper();
 		String expected = readFile("src/test/resources/Response", StandardCharsets.UTF_8);
 		String actual = Obj.writerWithDefaultPrettyPrinter().writeValueAsString(response);
