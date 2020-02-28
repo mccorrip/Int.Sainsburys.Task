@@ -51,7 +51,7 @@ Using best practice coding methods, build a Java console application that scrape
 ```
 
 ### Compile
-> TBD
+> ./mvn clean install
 
 ### Build
-> TBD
+> java -jar runnermodule/target/runnermodule-0.0.1-SNAPSHOT.jar
